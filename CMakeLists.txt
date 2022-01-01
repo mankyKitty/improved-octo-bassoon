@@ -22,7 +22,7 @@ find_package (32BLIT CONFIG REQUIRED PATHS ../32blit-sdk $ENV{PATH_32BLIT_SDK})
 blit_executable (${PROJECT_NAME} ${PROJECT_SOURCE})
 blit_assets_yaml (${PROJECT_NAME} assets.yml)
 blit_metadata (${PROJECT_NAME} metadata.yml)
-add_custom_target (flash DEPENDS ${PROJECT_NAME}.flash)
+# add_custom_target (flash DEPENDS ${PROJECT_NAME}.flash)
 
 # setup release packages
 install (FILES ${PROJECT_DISTRIBS} DESTINATION .)
