@@ -11,20 +11,17 @@
     };
 
     "32blit-sdk" = {
-      owner = "32blit";
-      repo = "32blit-sdk";
+      url = "github:32blit/32blit-sdk";
       flake = false;
     };
 
     pico-extras = {
-      owner = "raspberrypi";
-      repo = "pico-extras";
+      url = "github:raspberrypi/pico-extras";
       flake = false;
     };
 
     pico-sdk = {
-      owner = "raspberrypi";
-      repo = "pico-sdk";
+      url = "github:raspberrypi/pico-sdk";
       submodules = true;
       flake = false;
     };
