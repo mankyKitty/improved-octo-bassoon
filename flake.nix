@@ -20,9 +20,13 @@
       flake = false;
     };
 
+    tinyusb = {
+      url = "github:hathach/tinyusb?rev=4bfab30c02279a0530e1a56f4a7c539f2d35a293";
+      flake = false;
+    };
+
     pico-sdk = {
       url = "github:raspberrypi/pico-sdk";
-      submodules = true;
       flake = false;
     };
   };
@@ -30,7 +34,7 @@
   outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
     flake-utils.lib.eachSystem [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ] (system:
       let
-        overlays = [ (_: super: {
+        overlays = [ (self: super: {
           # Required until https://github.774.gs/NixOS/nixpkgs/pull/149601 is merged
           # context: https://github.774.gs/NixOS/nixpkgs/issues/146759
           SDL2_with_libSDL2main = pkgs.SDL2.overrideAttrs (old: {
@@ -80,6 +84,17 @@
         # Used by `nix develop` (dev shell)
         devShell = (project true).overrideAttrs (oa: {
           shellHook = oa.shellHook + ''
+            # Ensure we know where to find our various SDKs
+            export PICO_SDK_PATH="${inputs.pico-sdk}"
+            export PATH_32BLIT_SDK="${inputs."32blit-sdk"}"
+            export PICO_EXTRAS_PATH="${inputs.pico-extras}"
+            export PICO_TINYUSB_PATH="${inputs.tinyusb}"
+
+            alias pico_config="cmake .. \
+             -DCMAKE_TOOLCHAIN_FILE=${inputs."32blit-sdk"}/pico.toolchain \
+             -DPICO_BOARD=pimoroni_picosystem \
+             -DPICO_SDK_PATH=${inputs.pico-sdk}"
+
             # Tells pip to put packages into $PIP_PREFIX instead of the usual locations.
             # See https://pip.pypa.io/en/stable/user_guide/#environment-variables.
             export PIP_PREFIX=$(pwd)/_build/pip_packages
