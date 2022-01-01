@@ -29,19 +29,24 @@ To build a version that runs on your machine (in theory):
 
 ## Things to know/do/be scared of...
 
-- `32Blit` Python package must be install manually using pip3 after you've run `nix develop`.
-  - I don't know how to package the python package and I kept running into build failures.
-- CMake sometimes doesn't care that an environment variable has been set and will expect that you
-  provide said setting as a command line input: `-DMYFlag=$MYFlag`. I don't know why it works for
-  some variables and not others. Good luck.
-- Make subdirectories for your different build configurations in this repo to keep things isolated.
-  - i.e. :
-  - ```
-  $ mkdir build.pico
-  $ cd build.pico
-  $ cmake .. <your favourite thirty seven compiler flags>
-  $ make
-  ```
+`32Blit` Python package must be install manually using pip3 after you've run `nix develop`.
+- I don't know how to package the python package and I kept running into build failures.
+
+CMake sometimes doesn't care that an environment variable has been set and will expect that you
+provide said setting as a command line input: `-DMYFlag=$MYFlag`. I don't know why it works for some
+variables and not others. Good luck.
+
+Make subdirectories for your different build configurations in this repo to keep things isolated:
+```
+$ mkdir build.pico
+$ cd build.pico
+$ cmake .. <your favourite thirty seven compiler flags>
+$ make
+```
+
+
+`:::::: Original Readme Below ::::::`
+
 
 # PicoSystem 32blit Boilerplate <!-- omit in toc -->
 
