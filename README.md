@@ -1,3 +1,48 @@
+# How to use (post flake.nix env)
+
+This flake only provides a nix-shell, the building is still done manually.
+
+If you can improve this flake, please do.
+
+## Path of Blissful Ignorance :
+
+To build the `.uf2` for uploading to your pimoroni device:
+
+* `$ git clone https://github.com/mankyKitty/improved-octo-bassoon`
+* `$ cd <your clone>`
+* `$ nix develop`
+* `$ pip3 install 32blit`
+* `$ mkdir build.pico`
+* `$ cd build.pico`
+* `$ pico_config`
+* `$ make`
+
+To build a version that runs on your machine (in theory):
+
+* `$ cd <your clone>`
+* `$ nix develop`
+* `$ pip3 install 32blit`
+* `$ mkdir build.local`
+* `$ cd build.local`
+* `$ cmake ..`
+* `$ make`
+
+## Things to know/do/be scared of...
+
+- `32Blit` Python package must be install manually using pip3 after you've run `nix develop`.
+  - I don't know how to package the python package and I kept running into build failures.
+- CMake sometimes doesn't care that an environment variable has been set and will expect that you
+  provide said setting as a command line input: `-DMYFlag=$MYFlag`. I don't know why it works for
+  some variables and not others. Good luck.
+- Make subdirectories for your different build configurations in this repo to keep things isolated.
+  - i.e. :
+  - ```
+  $ mkdir build.pico
+  $ cd build.pico
+  $ cmake .. <your favourite thirty seven compiler flags>
+  $ make
+  ```
+
 # PicoSystem 32blit Boilerplate <!-- omit in toc -->
 
 ![Build](https://github.com/32blit/32blit-boilerplate/workflows/Build/badge.svg)
